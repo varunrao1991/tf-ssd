@@ -9,7 +9,7 @@ args = io_utils.handle_args()
 if args.handle_gpu:
     io_utils.handle_gpu_compatibility()
 
-batch_size = 32
+batch_size = 8
 epochs = 150
 load_weights = False
 with_voc_2012 = True
@@ -23,8 +23,11 @@ else:
 #
 hyper_params = train_utils.get_hyper_params(backbone)
 #
-train_data, info = data_utils.get_dataset("voc/2007", "train+validation")
-val_data, _ = data_utils.get_dataset("voc/2007", "test")
+data_dir="A:/data/hackathon_2023_1/masks"
+#train_data, info = tfds.load("dataset", split="train+validation", data_dir=data_dir, with_info=True)
+#val_data, _ = tfds.load("dataset", split="test+validation", data_dir=data_dir, with_info=True)
+train_data, info = data_utils.get_dataset("dataset", "train+validation", data_dir)
+val_data, _ = data_utils.get_dataset("dataset", "test+validation", data_dir)
 train_total_items = data_utils.get_total_item_size(info, "train+validation")
 val_total_items = data_utils.get_total_item_size(info, "test")
 
